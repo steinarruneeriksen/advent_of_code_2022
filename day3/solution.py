@@ -1,5 +1,5 @@
 import string
-
+from os.path import join, dirname
 input="""
 vJrwpWtwJgWrhcsFMMfFFhFp
 jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
@@ -13,11 +13,11 @@ def common_member(lst1, lst2):
     set2 = set(lst2)
     return set1 & set2
 
-def solve():
-    lst=input.split()
-    sum=0
+def solve(use_sample_data=True):
+    lst=input.split() if use_sample_data else open(join(dirname(__file__),"./input.txt")).readlines()
     all_characters = list(string.ascii_letters)
     print(all_characters)
+    sum=0
     for elf in lst:
         items=[*elf] #Each character
         half = len(items) // 2
