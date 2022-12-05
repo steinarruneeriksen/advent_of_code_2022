@@ -14,7 +14,7 @@ move 1 from 1 to 2
 
 
 
-def solve(use_sample_data=True):
+def solve(part=1, use_sample_data=True):
     lst=input.split('\n') if use_sample_data else open(join(dirname(__file__),"./input.txt")).readlines()
     if use_sample_data:
         lst=lst[1:-1]  #LINE BREAKS AT START AND END
@@ -37,14 +37,19 @@ def solve(use_sample_data=True):
 
     for line in lst[split_idx+1:] : #Remainser of rows
         line=line.replace('\n','') #Get rid of line break
+        #print(line)
         cols=line.split(' ')
         move_count=int(cols[1]) # second field is count
         from_col = int(cols[3])  # second field is count
         to_col = int(cols[5])  # second field is count
-        #print(move_count,from_col, to_col)
-        for c in range(move_count):
-            elem=map[from_col].pop()
-            map[to_col].append(elem)
+        if part==1:
+            for c in range(move_count):
+                elem=map[from_col].pop()
+                map[to_col].append(elem)
+        else: # Part 2
+            complete_list=map[from_col]
+            map[from_col]=complete_list[:-move_count] #Same as popping move_count times
+            map[to_col].extend(complete_list[-move_count:])  #Extend this list
     print(map)
     solution_word=""
     for val in map.values():
