@@ -37,7 +37,6 @@ def solve(part=1, use_sample_data=True):
 
     for line in lst[split_idx+1:] : #Remainser of rows
         line=line.replace('\n','') #Get rid of line break
-        #print(line)
         cols=line.split(' ')
         move_count=int(cols[1]) # second field is count
         from_col = int(cols[3])  # second field is count
