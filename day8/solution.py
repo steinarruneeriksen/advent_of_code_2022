@@ -44,10 +44,8 @@ def solve(part=1, use_sample_data=True):
                 lst.reverse()
             c=0
             for el in lst:
-                if v>el:
-                    c+=1
-                else:
-                    c+=1  #Count also the first above
+                c+=1
+                if v<=el:  #If value is smaller/equal to next tree.. exit
                     break
             return c
         for i in range(df.shape[0]):  # iterate over rows
