@@ -40,16 +40,14 @@ def solve(part=1, use_sample_data=True):
     elif part==2:
         maxval=0
         def compare(v, lst, reverse=False):
-            if len(lst)==0:
-                return 0
-            c=0
             if reverse:
                 lst.reverse()
+            c=0
             for el in lst:
                 if v>el:
                     c+=1
                 else:
-                    c+=1
+                    c+=1  #Count also the first above
                     break
             return c
         for i in range(df.shape[0]):  # iterate over rows
