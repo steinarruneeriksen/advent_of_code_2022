@@ -55,9 +55,9 @@ def solve(part=1, use_sample_data=True):
         for i in range(df.shape[0]):  # iterate over rows
             for j in range(df.shape[1]):  # iterate over columns
                 value = df.at[i, j]  # get cell value
-                a=compare(value, df.iloc[0:i,j].tolist(), True)
+                a=compare(value, df.iloc[0:i,j].tolist(), reverse=True) #Compare bottom up
                 b=compare(value, df.iloc[i+1:df.shape[0],j].tolist())
-                c=compare(value, df.iloc[i,0:j].tolist(), True)
+                c=compare(value, df.iloc[i,0:j].tolist(), reverse=True) #Compare right to left
                 d=compare(value, df.iloc[i,j+1:df.shape[1]].tolist())
                 prod=a*b*c*d
                 print(prod, a,b,c,d)
