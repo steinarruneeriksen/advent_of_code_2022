@@ -4,5 +4,6 @@ from day5.solution import solve as solve5
 from day6.solution import solve as solve6
 from day7.solution import solve as solve7
 from day8.solution import solve as solve8
+from day9.solution import solve as solve9
 if __name__ == '__main__':
-    solve8(2, True)
+    solve9(2, False)
