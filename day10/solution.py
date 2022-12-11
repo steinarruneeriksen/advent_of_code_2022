@@ -154,8 +154,8 @@ def check_print(cycle, crt):
         print(crt)
 
 def check_cycle(cycle, X, sumvalue, crt):
-    #cycles_of_interest=[20, 60, 100, 140, 180, 220]
-    cycles_of_interest = [40, 80, 120, 160, 200, 240]
+    cycles_of_interest=[20, 60, 100, 140, 180, 220]
+    #cycles_of_interest = [40, 80, 120, 160, 200, 240]
     if cycle in cycles_of_interest:
         sumvalue+=(cycle*X)
     return sumvalue
@@ -184,14 +184,13 @@ def solve(part=1, use_sample_data=True):
     crt=40*""
     X=1
     cycle=0
-
     sumvalue=0
     for line in allines:
         crt = update_crt(cycle % 40, crt, sprite)
         instructions=line.split(" ")
         if len(instructions)==1:
             cycle += 1
-            #sumvalue=check_cycle(cycle, X, sumvalue, crt)
+            sumvalue=check_cycle(cycle, X, sumvalue, crt)
             check_print(cycle, crt)
             crt = update_crt(cycle % 40, crt, sprite)
         else:
@@ -199,9 +198,11 @@ def solve(part=1, use_sample_data=True):
             value = int(instructions[1])
             cycle += 1
             check_print(cycle, crt)
+            sumvalue = check_cycle(cycle, X, sumvalue, crt)
             crt=update_crt(cycle % 40, crt, sprite)
             cycle += 1
             check_print(cycle, crt)
+            sumvalue = check_cycle(cycle, X, sumvalue, crt)
             crt=update_crt(cycle % 40, crt, sprite)
             X += value
             sprite = update_sprite(X)
