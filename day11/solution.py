@@ -176,3 +176,4 @@ def solve(part=1, use_sample_data=True):
     for v in monkeylist[:2]:  #THE TOP 2 MONKEYS
         final_product=final_product*v.inspected
     print("FINAL", final_product)
+    print(find_common_divisor())
