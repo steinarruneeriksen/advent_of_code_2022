@@ -21,39 +21,64 @@ Sensor at x=14, y=3: closest beacon is at x=15, y=3
 Sensor at x=20, y=1: closest beacon is at x=15, y=3
 """
 
+
+def calc_distance(x1, y1, x2, y2):
+    return abs(x1 - x2) + abs(y1 - y2)
+
 def solve(part=1, use_sample_data=True):
+    pd.set_option('display.max_columns', None)
     #pd.set_option('display.max_rows', None)
     #pd.set_option('display.max_cols', None)
     allines=input.split('\n') if use_sample_data else open(join(dirname(__file__),"./input.txt")).readlines()
-    paths=[]
+    sensor_objs={}
     sensors = []
     beacons = []
-    allrows=[]
+    beaconmap={}
+    xvals=[]
+    calculations=[]
     if use_sample_data:
         allines=allines[1:-1]
     for line in allines:
         text=line.split(": closest beacon is at ")
+        sensorobj=None
+        beaconobj=None
         for i in range(2):
             idxx=text[i].index("x=")
             idxx2 = text[i].index(",", idxx)
-            idxy=text[i].index("y=")
+            idxy = text[i].index("y=")
             x = text[i][idxx + 2:idxx2]
             y=text[i][idxy+2:]
             if i==0:
                 sensors.append((int(x), int(y)))
+                sensorobj=(int(x), int(y))
             else:
                 beacons.append((int(x), int(y)))
+                beaconmap[(int(x), int(y))]=(int(x), int(y))
+                beaconobj = (int(x), int(y))
+            xvals.append(int(x))
+        x=calc_distance(sensorobj[0],sensorobj[1], beaconobj[0], beaconobj[1])
+        calculations.append((sensorobj[0],sensorobj[1],beaconobj[0],beaconobj[1], x))
 
-    print(sensors)
-    print(beacons)
-    totlist=sensors.extend(beacons)
-    xmax=max(totlist, key=lambda x: x[0])
-    ymax = max(totlist, key=lambda x: x[1])
-    rows=[]
-    for i in range(ymax):
-        row = {}
-        for j in range(xmax):
-            row[j] = "#"
-        rows.append(row)
-    df=pd.DataFrame(data=rows)
-    print(df)
+        sensor_objs[sensorobj]=beaconobj
+    target_row=10 if use_sample_data else 2000000
+
+    map={}
+    for sx, sy, bx, by, dist in calculations:
+        d2=calc_distance(sx, sy, sx, target_row)
+        if d2<=dist:
+            diff=dist-d2
+            for i in range(sx-diff, sx+diff+1):
+                if (i, target_row) != (bx, by):
+                    if i not in map:
+                        map[i]=i
+    print(len(map.keys()))
+    map={}
+    for sx, sy, bx, by, dist in calculations:
+        for i in range(min(xvals), max(xvals)):
+            d2=calc_distance(sx, sy, i, target_row)
+            if d2<=dist:
+                if (i, target_row) not in beaconmap:
+                    if i not in map:
+                        map[i]=i
+    print(len(map.keys()))
+
