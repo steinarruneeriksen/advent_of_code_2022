@@ -11,4 +11,4 @@ from day12.solution import solve as solve12
 from day13.solution import solve as solve13
 from day14.solution import solve as solve14
 if __name__ == '__main__':
-    solve14(1, True)
+    solve14(2, False)
