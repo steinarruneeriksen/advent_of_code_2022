@@ -47,8 +47,13 @@ def solve(part=1, use_sample_data=True):
     print(sensors)
     print(beacons)
     totlist=sensors.extend(beacons)
-    for i in range(max(allrows) + 1):
+    xmax=max(totlist, key=lambda x: x[0])
+    ymax = max(totlist, key=lambda x: x[1])
+    rows=[]
+    for i in range(ymax):
         row = {}
-        for j in list(range(min(allcols), (max(allcols) + 1))):
-            row[j] = "."
+        for j in range(xmax):
+            row[j] = "#"
         rows.append(row)
+    df=pd.DataFrame(data=rows)
+    print(df)
