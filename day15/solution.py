@@ -68,7 +68,7 @@ def solve(part=1, use_sample_data=True):
         if d2<=dist:
             diff=dist-d2
             for i in range(sx-diff, sx+diff+1):
-                if (i, target_row) != (bx, by):
+                if (i, target_row) != (bx, by):  #Take awau Beacon
                     if i not in map:
                         map[i]=i
     print(len(map.keys()))
@@ -76,9 +76,9 @@ def solve(part=1, use_sample_data=True):
     for sx, sy, bx, by, dist in calculations:
         for i in range(min(xvals), max(xvals)):
             d2=calc_distance(sx, sy, i, target_row)
-            if d2<=dist:
-                if (i, target_row) not in beaconmap:
-                    if i not in map:
-                        map[i]=i
+            if d2<dist:
+                #if (i, target_row) not in beaconmap:
+                if i not in map:
+                    map[i]=i
     print(len(map.keys()))
 
